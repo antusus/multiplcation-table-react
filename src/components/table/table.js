@@ -35,7 +35,7 @@ class MultiplicationTable extends Component {
             const selectedRow = _.get(this.props, 'selectedCell.row');
             const selectedCol = _.get(this.props, 'selectedCell.column');
             const selected = selectedRow >= row &&  selectedCol >= col;
-            return <td className={selected ? 'selected-cell' : ''} row={row} column={col} onMouseOver={this.onSelectedCell} key={col}>{col * row}</td>
+            return <td className={selected ? 'selected-cell' : ''} row={row} column={col} onMouseOver={this.onSelectedCell} onClick={this.onSelectedCell} key={col}>{col * row}</td>
         });
     };
 
