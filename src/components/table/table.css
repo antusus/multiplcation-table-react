@@ -1,0 +1,27 @@
+.mtable {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.mtable tr td {
+    background-color: rgba(234, 29, 213, 0.6);
+    width: 2em;
+    height: 2em;
+    text-align: center;
+    font-size: 1.5em;
+    border: 0.05em solid black;
+    border-radius: 0.5em;
+}
+
+.mtable tr td:hover {
+    background-color: rgba(245, 67, 217, 0.25);
+    font-weight: bold;
+}
+
+.mtable tr:first-child td {
+    font-weight: bold;
+}
+
+.mtable tr td:first-child {
+    font-weight: bold;
+}
