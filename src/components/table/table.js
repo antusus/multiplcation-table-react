@@ -1,35 +1,37 @@
-import React from 'react';
+import React, {Component} from 'react';
+import _ from 'lodash';
 
-const MutiplicationTable = (props) => {
-    return (
-        <table className='mtable'>
-            <tbody>
-            {renderTable()}
-            </tbody>
-        </table>
-    );
-};
+class MultiplicationTable extends Component {
+    constructor(props) {
+        super(props);
+    }
 
-const renderTable = () => {
-    const rows = [];
-    for (let row = 1; row <= 10; row++) {
-        rows.push(
-            <tr key={row}>
-                {renderColumns(row)}
-            </tr>
+    render() {
+        return (
+            <table className='mtable'>
+                <tbody>
+                {this.renderTable()}
+                </tbody>
+            </table>
         );
     }
-    return rows;
-};
 
-const renderColumns = (row) => {
-    const cols = [];
-    for(let col = 1; col <= 10; col++) {
-        cols.push(
-          <td key={col}>{col * row}</td>
-        );
-    }
-    return cols;
-};
+    renderTable() {
+        return _.range(1,11).map(row => {
+            return(
+                <tr key={row}>
+                    {this.renderColumns(row)}
+                </tr>
+            )
+        });
+    };
 
-export default MutiplicationTable;
+    renderColumns(row) {
+        return _.range(1,11).map(col => {
+            return <td key={col}>{col * row}</td>
+        });
+    };
+
+}
+
+export default MultiplicationTable;
