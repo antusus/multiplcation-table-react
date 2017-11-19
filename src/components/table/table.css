@@ -13,7 +13,7 @@
     border-radius: 0.5em;
 }
 
-.mtable tr td:hover {
+.mtable tr td.selected-cell {
     background-color: rgba(245, 67, 217, 0.25);
     font-weight: bold;
 }
