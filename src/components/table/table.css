@@ -1,14 +1,16 @@
+.mtableContainer {
+    font-size: 1.5em;  }
+
 .mtable {
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 2.4em;
+    border-spacing: 0.1em;
 }
 
 .mtable tr td {
     background-color: rgba(234, 29, 213, 0.6);
-    width: 2em;
-    height: 2em;
+    width: 1.9em;
+    height: 1.9em;
     text-align: center;
-    font-size: 1.5em;
     border: 0.05em solid black;
     border-radius: 0.5em;
 }
@@ -24,4 +26,30 @@
 
 .mtable tr td:first-child {
     font-weight: bold;
+}
+
+.actionBar {
+    height: 3em;
+}
+
+.actionBar .message {
+    text-align: center;
+    line-height: 3em;
+}
+
+.actionBar .startButton {
+    font-size: inherit;
+    height: 2em;
+    line-height: 1.9em;
+    width: 10em;
+    border: 0.05em solid black;
+    box-sizing: border-box;
+    border-radius: 0.25em;
+    margin-top: 0.65em;
+    margin-left: 8.5em;
+    background-color: rgba(234, 29, 213, 0.6);
+}
+
+.actionBar .startButton:hover {
+    background-color: rgba(245, 67, 217, 0.25);
 }

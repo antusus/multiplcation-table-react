@@ -1,23 +1,42 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import _ from 'lodash';
-import {selectCell} from '../../actions/index';
+import {selectCell, confirmCell} from '../../actions/index';
 
 
 class MultiplicationTable extends Component {
     constructor(props) {
         super(props);
         this.onSelectedCell = this.onSelectedCell.bind(this);
+        this.onClickCell = this.onClickCell.bind(this);
     }
 
     render() {
         return (
-            <table className='mtable'>
-                <tbody>
-                {this.renderTable()}
-                </tbody>
-            </table>
+            <div className='mtableContainer'>
+                <table className='mtable'>
+                    <tbody>
+                    {this.renderTable()}
+                    </tbody>
+                </table>
+                <div className='actionBar'>
+                    {this.showStartButton()}
+                </div>
+            </div>
         );
+    }
+
+    showStartButton() {
+        if (this.props.confirmedCell.row && this.props.confirmedCell.column) {
+            return (
+                <button className='startButton'>
+                Start dla&nbsp;
+                {this.props.confirmedCell.row}
+                    &nbsp;x&nbsp;
+                {this.props.confirmedCell.column}
+            </button>);
+        }
+        return <div className='message'>Wybierz wartość w tabeli by rozpocząć</div>;
     }
 
     renderTable() {
@@ -40,7 +59,7 @@ class MultiplicationTable extends Component {
                     data-row={row}
                     data-column={col}
                     onMouseOver={this.onSelectedCell}
-                    onClick={this.onSelectedCell}
+                    onClick={this.onClickCell}
                     key={col}>
                     {col * row}
                 </td>
@@ -53,12 +72,19 @@ class MultiplicationTable extends Component {
         const column = event.target.dataset.column;
         this.props.selectCell(row, column)
     }
+
+    onClickCell(event) {
+        const row = event.target.dataset.row;
+        const column = event.target.dataset.column;
+        this.props.confirmCell(row, column)
+    }
 }
 
 const mapStateToProps = state => {
     return {
-        selectedCell: state.selectedCell
+        selectedCell: state.selectedCell,
+        confirmedCell: state.confirmedCell
     };
 };
 
-export default connect(mapStateToProps, {selectCell})(MultiplicationTable);
+export default connect(mapStateToProps, {selectCell, confirmCell})(MultiplicationTable);
