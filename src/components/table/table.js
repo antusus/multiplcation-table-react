@@ -34,15 +34,24 @@ class MultiplicationTable extends Component {
         return _.range(1, 11).map(col => {
             const selectedRow = _.get(this.props, 'selectedCell.row');
             const selectedCol = _.get(this.props, 'selectedCell.column');
-            const selected = selectedRow >= row &&  selectedCol >= col;
-            return <td className={selected ? 'selected-cell' : ''} row={row} column={col} onMouseOver={this.onSelectedCell} onClick={this.onSelectedCell} key={col}>{col * row}</td>
+            const selected = selectedRow >= row && selectedCol >= col;
+            return (
+                <td className={selected ? 'selected-cell' : ''}
+                    data-row={row}
+                    data-column={col}
+                    onMouseOver={this.onSelectedCell}
+                    onClick={this.onSelectedCell}
+                    key={col}>
+                    {col * row}
+                </td>
+            );
         });
     };
 
     onSelectedCell(event) {
-        const row = event.target.getAttribute('row');
-        const column = event.target.getAttribute('column');
-        this.props.selectCell(row,column)
+        const row = event.target.dataset.row;
+        const column = event.target.dataset.column;
+        this.props.selectCell(row, column)
     }
 }
 
