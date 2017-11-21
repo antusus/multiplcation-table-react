@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import _ from 'lodash';
 import {selectCell, confirmCell} from '../../actions/index';
-
+import {Link} from 'react-router-dom';
 
 class MultiplicationTable extends Component {
     constructor(props) {
@@ -13,14 +13,17 @@ class MultiplicationTable extends Component {
 
     render() {
         return (
-            <div className='mtableContainer'>
-                <table className='mtable'>
-                    <tbody>
-                    {this.renderTable()}
-                    </tbody>
-                </table>
-                <div className='actionBar'>
-                    {this.showStartButton()}
+            <div className='main'>
+                <div className='title'>Tabliczka mnożenia</div>
+                <div className='mtableContainer'>
+                    <table className='mtable'>
+                        <tbody>
+                        {this.renderTable()}
+                        </tbody>
+                    </table>
+                    <div className='actionBar'>
+                        {this.showStartButton()}
+                    </div>
                 </div>
             </div>
         );
@@ -29,12 +32,12 @@ class MultiplicationTable extends Component {
     showStartButton() {
         if (this.props.confirmedCell.row && this.props.confirmedCell.column) {
             return (
-                <button className='startButton'>
-                Start dla&nbsp;
-                {this.props.confirmedCell.row}
+                <Link to="/game" className='startButton'>
+                    Start dla&nbsp;
+                    {this.props.confirmedCell.row}
                     &nbsp;x&nbsp;
-                {this.props.confirmedCell.column}
-            </button>);
+                    {this.props.confirmedCell.column}
+                </Link>);
         }
         return <div className='message'>Wybierz wartość w tabeli by rozpocząć</div>;
     }

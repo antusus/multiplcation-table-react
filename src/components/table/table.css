@@ -1,5 +1,6 @@
 .mtableContainer {
-    font-size: 1.5em;  }
+    font-size: 1.5em;
+}
 
 .mtable {
     margin-left: 2.4em;
@@ -38,9 +39,11 @@
 }
 
 .actionBar .startButton {
+    display: block;
+    text-align: center;
     font-size: inherit;
     height: 2em;
-    line-height: 1.9em;
+    line-height: 2em;
     width: 10em;
     border: 0.05em solid black;
     box-sizing: border-box;
@@ -48,8 +51,12 @@
     margin-top: 0.65em;
     margin-left: 8.5em;
     background-color: rgba(234, 29, 213, 0.6);
+    color: black;
+    text-decoration: none;
 }
 
 .actionBar .startButton:hover {
     background-color: rgba(245, 67, 217, 0.25);
+    color: black;
+    text-decoration: none;
 }

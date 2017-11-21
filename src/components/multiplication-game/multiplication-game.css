@@ -1,0 +1,31 @@
+.gameContainer {
+    font-size: 1.5em;
+}
+
+.game {
+    margin-left: 2.4em;
+    border-spacing: 0.1em;
+}
+
+.actionBar .stopButton {
+    display: block;
+    text-align: center;
+    height: 2em;
+    font-size: 1.5em;
+    line-height: 2em;
+    width: 10em;
+    border: 0.05em solid black;
+    box-sizing: border-box;
+    border-radius: 0.25em;
+    margin-top: 0.65em;
+    margin-left: 8.5em;
+    background-color: rgba(234, 29, 213, 0.6);
+    color: black;
+    text-decoration: none;
+}
+
+.actionBar .stopButton:hover {
+    background-color: rgba(245, 67, 217, 0.25);
+    color: black;
+    text-decoration: none;
+}
