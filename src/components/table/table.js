@@ -54,11 +54,9 @@ class MultiplicationTable extends Component {
 
     renderColumns(row) {
         return _.range(1, 11).map(col => {
-            const selectedRow = _.get(this.props, 'selectedCell.row');
-            const selectedCol = _.get(this.props, 'selectedCell.column');
-            const selected = selectedRow >= row && selectedCol >= col;
+            const className = `${this.isSelectedCellClass(row, col)} ${this.isConfirmedCellClass(row, col)}`;
             return (
-                <td className={selected ? 'selected-cell' : ''}
+                <td className={className}
                     data-row={row}
                     data-column={col}
                     onMouseOver={this.onSelectedCell}
@@ -70,16 +68,49 @@ class MultiplicationTable extends Component {
         });
     };
 
+    isSelectedCellClass(row, column) {
+        const selectedRow = _.get(this.props, 'selectedCell.row');
+        const selectedCol = _.get(this.props, 'selectedCell.column');
+        const selected = selectedRow >= row && selectedCol >= column;
+        return selected ? 'selected-cell' : '';
+    };
+
+    isConfirmedCellClass(row, column) {
+        const confirmedCell = this.getConfirmedCell();
+        const isConfirmed = confirmedCell.row === `${row}` && confirmedCell.column === `${column}`;
+        return isConfirmed ? 'confirmed-cell' : '';
+    };
+
     onSelectedCell(event) {
-        const row = event.target.dataset.row;
-        const column = event.target.dataset.column;
-        this.props.selectCell(row, column)
+        if (this.isCellNotConfirmed()) {
+            const row = event.target.dataset.row;
+            const column = event.target.dataset.column;
+            this.props.selectCell(row, column)
+        }
+    }
+
+    isCellNotConfirmed() {
+        const confirmedCell = this.getConfirmedCell();
+        return !confirmedCell.row || !confirmedCell.column;
     }
 
     onClickCell(event) {
-        const row = event.target.dataset.row;
-        const column = event.target.dataset.column;
-        this.props.confirmCell(row, column)
+        if (this.isCellNotConfirmed() || this.isSameCellSelected(event.target.dataset.row, event.target.dataset.column)) {
+            const row = event.target.dataset.row;
+            const column = event.target.dataset.column;
+            this.props.confirmCell(row, column)
+        }
+    }
+
+    isSameCellSelected(row, column) {
+        const confirmedCell = this.getConfirmedCell();
+        return confirmedCell.row === row && confirmedCell.column === column;
+    }
+
+    getConfirmedCell() {
+        const confirmedRow = _.get(this.props, 'confirmedCell.row');
+        const confirmedCol = _.get(this.props, 'confirmedCell.column');
+        return {row :confirmedRow, column : confirmedCol};
     }
 }
 

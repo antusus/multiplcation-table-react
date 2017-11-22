@@ -21,6 +21,10 @@
     font-weight: bold;
 }
 
+.mtable tr td.confirmed-cell {
+    background-color: #ea1dd5;
+}
+
 .mtable tr:first-child td {
     font-weight: bold;
 }
