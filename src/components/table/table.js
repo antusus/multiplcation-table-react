@@ -96,10 +96,12 @@ class MultiplicationTable extends Component {
     }
 
     onClickCell(event) {
-        if (this.isCellNotConfirmed() || this.isSameCellSelected(event.target.dataset.row, event.target.dataset.column)) {
+        if (this.isCellNotConfirmed()) {
             const row = event.target.dataset.row;
             const column = event.target.dataset.column;
             this.props.confirmCell(row, column)
+        } else if (this.isSameCellSelected(event.target.dataset.row, event.target.dataset.column)) {
+            this.props.clearConfirmedCell();
         }
     }
 
