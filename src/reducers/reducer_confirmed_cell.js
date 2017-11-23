@@ -1,4 +1,4 @@
-import {CONFIRMED_CELL} from '../actions/index';
+import {CONFIRMED_CELL, CLEAR_CONFIRMED_CELL} from '../actions/index';
 
 export default function (state = {}, action) {
     switch (action.type) {
@@ -8,6 +8,9 @@ export default function (state = {}, action) {
             const newConfirmedRow = action.payload.row;
             const newConfirmedCol = action.payload.column;
             return oldConfirmedCol === newConfirmedCol && oldConfirmedRow === newConfirmedRow? {} : action.payload;
+        }
+        case CLEAR_CONFIRMED_CELL : {
+            return {};
         }
         default:
             return state;

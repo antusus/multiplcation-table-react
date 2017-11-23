@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import _ from 'lodash';
-import {selectCell, confirmCell} from '../../actions/index';
+import {selectCell, confirmCell, clearConfirmedCell} from '../../actions/index';
 import {Link} from 'react-router-dom';
 
 class MultiplicationTable extends Component {
@@ -9,6 +9,7 @@ class MultiplicationTable extends Component {
         super(props);
         this.onSelectedCell = this.onSelectedCell.bind(this);
         this.onClickCell = this.onClickCell.bind(this);
+        this.props.clearConfirmedCell();
     }
 
     render() {
@@ -121,4 +122,4 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps, {selectCell, confirmCell})(MultiplicationTable);
+export default connect(mapStateToProps, {selectCell, confirmCell, clearConfirmedCell})(MultiplicationTable);
