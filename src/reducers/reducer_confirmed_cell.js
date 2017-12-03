@@ -1,3 +1,4 @@
+import {LOCATION_CHANGE} from 'react-router-redux';
 import {CONFIRMED_CELL, CLEAR_CONFIRMED_CELL} from '../actions/index';
 
 export default function (state = {}, action) {
@@ -7,6 +8,9 @@ export default function (state = {}, action) {
         }
         case CLEAR_CONFIRMED_CELL : {
             return {};
+        }
+        case LOCATION_CHANGE: {
+            return action.payload.pathname === '/' ? {} : state;
         }
         default:
             return state;

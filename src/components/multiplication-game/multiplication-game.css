@@ -1,3 +1,12 @@
+.main .progress {
+    width: 100%;
+    text-align: center;
+    font-size: 1.5em;
+    height: 1.5em;
+    line-height: 1.5em;
+    margin-top: 1.5em;
+}
+
 .main .question {
     width: 100%;
     height: 8em;
@@ -9,7 +18,7 @@
     margin-right: auto;
 }
 
-.main .question .label{
+.main .question .label {
     font-size: 1.5em;
 }
 
@@ -22,7 +31,7 @@
 
 .main .stats {
     width: 100%;
-    height: 8em;
+    height: 6em;
 }
 
 .main .stats .statsRow {
@@ -30,6 +39,25 @@
     font-size: 1.5em;
     height: 1.5em;
     line-height: 1.5em;
+}
+
+.main .wrongAnswers {
+    font-size: 1.5em;
+    margin: 1em 1em;
+    width: 25em;
+    min-height: 1em;
+    max-height: 14em;
+    overflow: scroll;
+}
+
+.wrongAnswers .wrong {
+    float: left;
+    width: 3em;
+    margin-left: 1em;
+    height: 1.5em;
+    line-height: 1.5em;
+    margin-top: 0.5em;
+    text-align: left;
 }
 
 .actionBar .stopButton {

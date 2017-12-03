@@ -3,59 +3,20 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import _ from 'lodash';
 
+import {answerQuestion} from '../../actions';
+
 class MultiplicationGame extends Component {
 
     constructor(props) {
         super(props);
-        const allQuestions = this.generateAllQuestions(this.props);
-        // const allQuestions = this.generateAllQuestions({confirmedCell : {row :3, column : 5}});
-        const firstQuestion = _.sample(allQuestions);
-        this.state = {
-            confirmedCell: props.confirmedCell,
-            // confirmedCell: {confirmedCell : {row :3, column : 5}},
-            notAnswered: _.without(allQuestions, firstQuestion),
-            answered: [],
-            currentQuestion: firstQuestion,
-            answer: ''
-        };
-
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.focusAnswerInput = this.focusAnswerInput.bind(this);
+        this.state = {answer: ''};
     }
 
-    handleChange(event) {
-        this.setState({answer: event.target.value});
-    }
-
-    handleSubmit(event) {
-        const answer = parseInt(this.state.answer, 10);
-        let currentQuestion = {question: this.state.currentQuestion};
-        const answered = this.getAnsweredQuestions(currentQuestion.question, answer);
-        let notAnswered = this.state.notAnswered;
-        if (notAnswered.length >= 1) {
-            currentQuestion = _.sample(notAnswered);
-            notAnswered = _.without(notAnswered, currentQuestion);
-            this.setState({answered, currentQuestion, notAnswered, answer: ''});
-        } else {
-            this.setState({answered, currentQuestion: undefined, notAnswered: []})
-        }
-        event.preventDefault();
-    }
-
-    getAnsweredQuestions(currentQuestion, answer) {
-        const expected = currentQuestion[0] * currentQuestion[1];
-        currentQuestion.correct = expected === answer;
-        const answered = this.state.answered;
-        answered.push(currentQuestion);
-        return answered;
-    };
-
-    generateAllQuestions(props) {
-        const row = parseInt(props.confirmedCell.row, 10);
-        const column = parseInt(props.confirmedCell.column, 10);
-        const rows = _.range(1, row + 1);
-        const columns = _.range(1, column + 1);
-        return _.flatMap(rows, row => columns.map(col => [row, col]));
+    componentDidMount() {
+        console.log('input', this.answerInput);
     }
 
     render() {
@@ -68,27 +29,56 @@ class MultiplicationGame extends Component {
                 </div>
             </div>
         );
+
+
     }
 
     renderGame() {
-        if (this.state.currentQuestion) {
+        if (_.get(this.props, 'game.start.row') && _.get(this.props, 'game.start.column')) {
+            return this.renderGameTable();
+        } else {
+            return <div>Czekaj. Gra jest ładowana.</div>
+        }
+    }
+
+    handleChange(event) {
+        this.setState({answer: event.target.value});
+    }
+
+    handleSubmit(event) {
+        const answer = parseInt(this.state.answer, 10);
+        this.props.answerQuestion(this.props.game.currentQuestion, answer);
+        this.setState({answer: ''});
+        event.preventDefault();
+    }
+
+    renderGameTable() {
+        if (this.props.game.currentQuestion) {
             return (
                 <div>
                     <div className='title'>
-                        Czas zacząć grę dla&nbsp;{this.state.confirmedCell.row}&nbsp;x&nbsp;{this.state.confirmedCell.column}
+                        Czas zacząć grę
+                        dla&nbsp;{this.props.game.start.row}&nbsp;x&nbsp;{this.props.game.start.column}
                     </div>
+                    <div className='progress'>Pozostało pytań {this.props.game.notAnswered.length + 1}</div>
                     <div className='question'>
                         <form onSubmit={this.handleSubmit}>
                             <div className='row'>
                                 <label className='label'>
-                                    Podaj wynik mnożenia&nbsp;{this.state.currentQuestion[0]}&nbsp;x&nbsp;{this.state.currentQuestion[1]}
+                                    Podaj wynik mnożenia&nbsp;
+                                    {this.props.game.currentQuestion.row}
+                                    &nbsp;x&nbsp;
+                                    {this.props.game.currentQuestion.column}
                                 </label>
                                 <input
+                                    id='answer'
                                     className='answer'
                                     value={this.state.answer}
+                                    name='answer'
                                     type='number'
                                     autoComplete='off'
-                                    onChange={this.handleChange}/>
+                                    onChange={this.handleChange}
+                                    autoFocus/>
                             </div>
                         </form>
                     </div>
@@ -98,28 +88,42 @@ class MultiplicationGame extends Component {
     }
 
     renderStats() {
-        if (!this.state.currentQuestion) {
-            const correctCount = _.filter(this.state.answered, {correct: true}).length;
-            const wrongCount = _.filter(this.state.answered, {correct: false}).length;
+        if (this.props.game.start && !this.props.game.currentQuestion) {
+            const correct = _.filter(this.props.game.answered, {correct: true});
+            const wrong = _.filter(this.props.game.answered, {correct: false});
+            console.log('stats', this.props.game);
             return (
                 <div>
                     <div className='title'>
-                        Koniec gry dla&nbsp;{this.state.confirmedCell.row}&nbsp;x&nbsp;{this.state.confirmedCell.column}
+                        Koniec gry dla&nbsp;{this.props.game.start.row}&nbsp;x&nbsp;{this.props.game.start.column}
                     </div>
                     <div className='stats'>
-                        <p className='statsRow'>Poprawnych odpowiedzi {correctCount}.</p>
-                        <p className='statsRow'>Nie poprawnych odpowiedzi {wrongCount}.</p>
+                        <p className='statsRow'>Poprawnych odpowiedzi {correct.length}.</p>
+                        <p className='statsRow'>Nie poprawnych odpowiedzi {wrong.length}.</p>
+                    </div>
+                    <div className='wrongAnswers'>
+                        {wrong.map(wrongAnswer => MultiplicationGame.renderWrong(wrongAnswer))}
                     </div>
                 </div>
             );
         }
     }
+
+    focusAnswerInput() {
+        this.answerInput.focus();
+    }
+
+    static renderWrong(answer) {
+        const question = answer.question;
+        return <div className='wrong'>{question.row}&nbsp;x&nbsp;{question.column}</div>
+    }
 }
 
 const mapStateToProps = state => {
     return {
-        confirmedCell: state.confirmedCell
+        confirmedCell: state.confirmedCell,
+        game: state.game
     };
 };
 
-export default connect(mapStateToProps)(MultiplicationGame);
+export default connect(mapStateToProps, {answerQuestion})(MultiplicationGame);

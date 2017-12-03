@@ -31,13 +31,17 @@ class MultiplicationTable extends Component {
     }
 
     showStartButton() {
-        if (this.props.confirmedCell.row && this.props.confirmedCell.column) {
+        if (_.get(this.props, 'confirmedCell.row') && _.get(this.props, 'confirmedCell.column')) {
+            const row = this.props.confirmedCell.row;
+            const column = this.props.confirmedCell.column;
             return (
-                <Link to="/game" className='startButton'>
-                    Start dla&nbsp;
-                    {this.props.confirmedCell.row}
-                    &nbsp;x&nbsp;
-                    {this.props.confirmedCell.column}
+                <Link
+                    to={{
+                        pathname: '/game',
+                        state: {row, column}
+                    }}
+                    className='startButton'>
+                    Start dla&nbsp;{row}&nbsp;x&nbsp;{column}
                 </Link>);
         }
         return <div className='message'>Wybierz wartość w tabeli by rozpocząć</div>;
@@ -113,7 +117,7 @@ class MultiplicationTable extends Component {
     getConfirmedCell() {
         const confirmedRow = _.get(this.props, 'confirmedCell.row');
         const confirmedCol = _.get(this.props, 'confirmedCell.column');
-        return {row :confirmedRow, column : confirmedCol};
+        return {row: confirmedRow, column: confirmedCol};
     }
 }
 

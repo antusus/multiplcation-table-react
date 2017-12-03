@@ -1,27 +1,40 @@
 import React, {Component} from 'react';
 import {Provider} from 'react-redux';
-import {createStore} from 'redux';
+import {createStore, applyMiddleware} from 'redux'
 import './App.css';
 import MultiplicationTable from './components/table/table';
 import MultiplicationGame from './components/multiplication-game/multiplication-game';
-import {HashRouter as Router, Switch, Route} from 'react-router-dom';
+import {Route, Switch} from 'react-router';
+import {ConnectedRouter, routerMiddleware} from 'react-router-redux';
+import {composeWithDevTools} from 'redux-devtools-extension';
+import createHistory from 'history/createHashHistory';
 import reducers from './reducers';
+
+
+//hash history
+const history = createHistory();
+const middleware = routerMiddleware(history);
 
 const store = createStore(
     reducers,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    composeWithDevTools(
+        applyMiddleware(...middleware),
+        // other store enhancers if any
+    )
 );
 
 class App extends Component {
     render() {
         return (
             <Provider store={store}>
-                <Router>
+                <ConnectedRouter history={history}>
+                    {/*<Router>*/}
                     <Switch>
-                        <Route path="/game" component={MultiplicationGame}/>
+                        <Route path='/game' component={MultiplicationGame}/>
                         <Route exact={true} path="/" component={MultiplicationTable}/>
                     </Switch>
-                </Router>
+                    {/*</Router>*/}
+                </ConnectedRouter>
             </Provider>
         );
     }
