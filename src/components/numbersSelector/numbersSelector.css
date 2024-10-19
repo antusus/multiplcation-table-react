@@ -1,0 +1,32 @@
+.numbersContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 20px;
+	font-weight: bold;
+
+	.number {
+		width: 1em;
+		height: 1em;
+		border: 0.1em solid #000;
+		border-radius: 0.6em;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin: 0 0.5em;
+		padding: 1em;
+		cursor: pointer;
+	}
+
+	.selected {
+		background-color: #61dafb;
+	}
+
+	#clearButton{
+		margin-left: 0.5em;
+		padding: 1em;
+		background-color: #ff7075;
+		border-radius: 0.6em;
+		font-weight: bold;
+	}
+}
