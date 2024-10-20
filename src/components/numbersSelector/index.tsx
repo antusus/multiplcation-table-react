@@ -1,9 +1,10 @@
-import {useReducer} from 'react';
+import {useContext} from 'react';
 import './numbersSelector.css';
-import selectedNumbersReducer from '../../reducers/selectedNumbersReducer';
+import {MultiplicationTableActionsContext, SelectedNumbersContext} from '../../contexts/MultiplicationTableContexts';
 
 export default function NumbersSelector() {
-    const [selectedNumbers, dispatch] = useReducer(selectedNumbersReducer, []);
+    const selectedNumbers = useContext(SelectedNumbersContext)
+    const dispatch = useContext(MultiplicationTableActionsContext);
 
     function onNumberSelect(number: number) {
         if (selectedNumbers.includes(number)) {
