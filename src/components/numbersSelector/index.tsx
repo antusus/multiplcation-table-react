@@ -1,10 +1,12 @@
-import {useContext} from 'react';
 import './numbersSelector.css';
-import {MultiplicationTableActionsContext, MultiplicationTableContext} from '../../contexts/MultiplicationTableContexts';
+import {
+    useMultiplicationTableActionsContext,
+    useMultiplicationTableContext
+} from "../../providers/MultiplicationTableStateProvider";
 
 export default function NumbersSelector() {
-    const context = useContext(MultiplicationTableContext)
-    const dispatch = useContext(MultiplicationTableActionsContext);
+    const context = useMultiplicationTableContext();
+    const dispatch = useMultiplicationTableActionsContext();
 
     function onNumberSelect(number: number) {
         if (context.selectedNumbers.includes(number)) {
@@ -20,7 +22,7 @@ export default function NumbersSelector() {
 
     return (
         <div className={'numbersContainer'}>
-            {[...Array(9)].map((_, i) => (
+            {[...Array(10)].map((_, i) => (
                 <div key={`number_${i + 1}`}
                      className={`number ${context.selectedNumbers.includes(i + 1) ? 'selected' : ''}`}
                      onClick={() => onNumberSelect(i + 1)}>

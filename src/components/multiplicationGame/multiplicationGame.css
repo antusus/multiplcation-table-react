@@ -1,0 +1,16 @@
+.multiplicationTable {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 1em;
+	gap: 2em;
+
+	.question {
+		font-size: 2em;
+	}
+
+	#answer {
+		font-size: 2em;
+		width: 2em;
+	}
+}

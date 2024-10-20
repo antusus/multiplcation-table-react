@@ -1,21 +1,21 @@
 import {fireEvent, render, screen} from '@testing-library/react';
 import '@testing-library/jest-dom'
 import NumbersSelector from "./index";
-import {SelectedNumbersProvider} from "../../providers/SelectedNumbersProvider";
+import {MultiplicationTableStateProvider} from "../../providers/MultiplicationTableStateProvider";
 
-describe('NumberasSelector component', () => {
+describe('NumbersSelector component', () => {
     function getUi() {
         return (
-            <SelectedNumbersProvider>
+            <MultiplicationTableStateProvider initialSelectedNumbers={[]}>
                 <NumbersSelector/>
-            </SelectedNumbersProvider>
+            </MultiplicationTableStateProvider>
         );
     }
 
     test('renders numbers', () => {
         const {container} = render(getUi());
         const numbers = container.querySelectorAll('.number');
-        expect(numbers).toHaveLength(9)
+        expect(numbers).toHaveLength(10)
     });
 
     test('selects number', () => {
