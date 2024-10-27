@@ -1,20 +1,35 @@
 import './multiplicationGame.css';
-import {useMultiplicationTableContext} from '../../providers/MultiplicationTableStateProvider';
-import {ChangeEvent, useState} from 'react';
+import {
+    useMultiplicationTableActionsContext,
+    useMultiplicationTableContext
+} from '../../providers/MultiplicationTableStateProvider';
+import {ChangeEvent, FormEvent, useState} from 'react';
 
 export default function MultiplicationGame() {
     const context = useMultiplicationTableContext();
+    const dispatch = useMultiplicationTableActionsContext();
     const [answer, setAnswer] = useState('');
+    const questions = context.questions;
+    const currentQuestionIndex = context.currentQuestionIndex;
 
     function handleChange(e: ChangeEvent<HTMLInputElement>) {
         setAnswer(e.target.value);
     }
 
-    if (context.gameStarted) {
+    function handleSumitAnswer(e: FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        dispatch({
+            type: 'answer',
+            payload: parseInt(answer)
+        })
+    }
+
+    if (context.gameState && questions.length > 0 && Number.isInteger(currentQuestionIndex)) {
+        const question = questions[currentQuestionIndex!];
         return (
-            <form>
-                <div className={'multiplicationTable'}>
-                    <label className={'question'}>1 * 2 = </label>
+            <div className={'multiplicationTable'}>
+                <form onSubmit={handleSumitAnswer}>
+                    <label className={'question'}>{question.factorOne} * {question.factorTwo} = </label>
                     <input
                         type='number'
                         autoComplete={'off'}
@@ -22,9 +37,10 @@ export default function MultiplicationGame() {
                         onChange={handleChange}
                         value={answer}
                         autoFocus={true}
+                        required={true}
                     />
-                </div>
-            </form>
+                </form>
+            </div>
         );
     } else {
         return null;

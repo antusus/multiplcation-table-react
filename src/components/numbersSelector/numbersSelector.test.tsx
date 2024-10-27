@@ -6,7 +6,7 @@ import {MultiplicationTableStateProvider} from "../../providers/MultiplicationTa
 describe('NumbersSelector component', () => {
     function getUi() {
         return (
-            <MultiplicationTableStateProvider initialSelectedNumbers={[]}>
+            <MultiplicationTableStateProvider selectedNumbers={[]}>
                 <NumbersSelector/>
             </MultiplicationTableStateProvider>
         );

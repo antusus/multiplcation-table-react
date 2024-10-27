@@ -5,7 +5,7 @@ import ActionsBar from "./index";
 describe('NumbersSelector component', () => {
     function getUi(selectedNumbers: number[]) {
         return (
-            <MultiplicationTableStateProvider initialSelectedNumbers={selectedNumbers}>
+            <MultiplicationTableStateProvider selectedNumbers={selectedNumbers}>
                 <ActionsBar/>
             </MultiplicationTableStateProvider>
         );

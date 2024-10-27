@@ -1,5 +1,6 @@
 import './actionsBar.css';
 import {
+    GameState,
     useMultiplicationTableActionsContext,
     useMultiplicationTableContext
 } from "../../providers/MultiplicationTableStateProvider";
@@ -7,7 +8,7 @@ import {
 export default function ActionsBar() {
     const context = useMultiplicationTableContext();
     const dispatch = useMultiplicationTableActionsContext();
-    const restartIsDisabled = !context.gameStarted;
+    const restartIsDisabled = context.gameState === GameState.NotStarted;
     const startIsDisabled = context.selectedNumbers.length === 0 || !restartIsDisabled;
 
     function handleStart() {
