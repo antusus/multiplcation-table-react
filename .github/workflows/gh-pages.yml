@@ -2,7 +2,7 @@ name: Publis to GitHub Pages
 on:
   push:
     branches:
-      - master
+      - main
       - v2
 jobs:
   build:
