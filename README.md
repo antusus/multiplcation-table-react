@@ -2,8 +2,7 @@
 [![Publis to GitHub Pages](https://github.com/antusus/multiplcation-table-react/actions/workflows/gh-pages.yml/badge.svg)](https://github.com/antusus/multiplcation-table-react/actions/workflows/gh-pages.yml)
 ![Platform](https://img.shields.io/badge/node-20-blue)
 
-[![Build and Test](https://github.com/antusus/multiplcation-table-react/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/antusus/multiplcation-table-react/actions/workflows/build-and-test.yml)
-[![Publish to GitHub Pages](https://github.com/antusus/multiplcation-table-react/actions/workflows/gh-pages.yml/badge.svg)](https://github.com/antusus/multiplcation-table-react/actions/workflows/gh-pages.yml)
+[![Build, Test and Publish to GitHub Pages](https://github.com/antusus/multiplcation-table-react/actions/workflows/gh-pages.yml/badge.svg)](https://github.com/antusus/multiplcation-table-react/actions/workflows/gh-pages.yml)
 ![Platform](https://img.shields.io/badge/node-20-blue)
 
 # Getting Started with Create React App
