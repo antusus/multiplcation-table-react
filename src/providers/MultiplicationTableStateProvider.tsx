@@ -24,6 +24,30 @@ export class Question {
     }
 }
 
+export class AnsweredQuestion {
+    private readonly _question: Question;
+    private readonly _answer: number;
+    private readonly _isCorrect: boolean;
+
+    public constructor(question: Question, answer: number) {
+        this._question = question;
+        this._answer = answer;
+        this._isCorrect = question.factorOne * question.factorTwo === answer;
+    }
+
+    get question(): Question {
+        return this._question;
+    }
+
+    get answer(): number {
+        return this._answer;
+    }
+
+    get isCorrect(): boolean {
+        return this._isCorrect;
+    }
+}
+
 export enum GameState {
     NotStarted,
     InProgress,
@@ -35,7 +59,7 @@ export type MultiplicationTableContextType = {
     selectedNumbers: number[];
     questions: Question[];
     currentQuestionIndex?: number;
-    answeredQuestions: Question[];
+    answeredQuestions: AnsweredQuestion[];
 }
 
 const MultiplicationTableContext = createContext<MultiplicationTableContextType>({
@@ -53,12 +77,14 @@ export function MultiplicationTableStateProvider(
         gameState = GameState.NotStarted,
         selectedNumbers = [],
         questions = [],
+        answeredQuestions = [],
         currentQuestionIndex,
         children
     }: {
         gameState?: GameState,
         selectedNumbers?: number[],
         questions?: Question[],
+        answeredQuestions?: AnsweredQuestion[],
         currentQuestionIndex?: number,
         children: React.ReactNode
     }) {
@@ -68,7 +94,7 @@ export function MultiplicationTableStateProvider(
             gameState,
             selectedNumbers,
             questions,
-            answeredQuestions: [] as Question[],
+            answeredQuestions,
             ...(currentQuestionIndex !== undefined ? {currentQuestionIndex} : {})
         }
     );
@@ -92,15 +118,24 @@ export function useMultiplicationTableActionsContext() {
 
 const numbers = [1,2,3,4,5,6,7,8,9,10];
 
+function shuffleArray<T>(array: T[]): T[] {
+    const shuffledArray = array.slice();
+    for (let i = shuffledArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+    }
+    return shuffledArray;
+}
+
 function generateQuestions(selectedNumbers: number[]) {
-    return selectedNumbers.flatMap(n => numbers.map(m => {
+    return shuffleArray(selectedNumbers.flatMap(n => numbers.map(m => {
         return new Question(n, m)
-    }));
+    })));
 }
 
 function questionWasAnswered(state: MultiplicationTableContextType, payload: number) {
     const currentQuestion = state.questions[state.currentQuestionIndex!];
-    const answeredQuestions = [...state.answeredQuestions, currentQuestion];
+    const answeredQuestions = [...state.answeredQuestions, new AnsweredQuestion(currentQuestion, payload)];
     const questions = state.questions.filter(q => q !== currentQuestion);
     const gameState = questions.length === 0 ? GameState.Finished : state.gameState;
     return {...state, gameState, questions, answeredQuestions};
@@ -116,11 +151,11 @@ function selectedNumbersReducer(state: MultiplicationTableContextType, action: {
                 selectedNumbers: state.selectedNumbers.filter(n => n !== action.payload)
             };
         case 'clear':
-            return {...state, gameState: GameState.NotStarted, selectedNumbers: []};
+            return {...state, gameState: GameState.NotStarted, selectedNumbers: [], answeredQuestions: []};
         case 'start':
             return {...state, gameState: GameState.InProgress, questions: generateQuestions(state.selectedNumbers), currentQuestionIndex: 0};
         case 'restart':
-            return {...state, gameState: GameState.NotStarted, selectedNumbers: []};
+            return {...state, gameState: GameState.NotStarted, selectedNumbers: [], answeredQuestions: []};
         case 'answer':
             return questionWasAnswered(state, action.payload);
         default: {

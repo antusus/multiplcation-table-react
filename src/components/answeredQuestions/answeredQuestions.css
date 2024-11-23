@@ -1,0 +1,33 @@
+.answersTable {
+	width: 100%;
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+.answersTable thead {
+	background-color: #f2f2f2;
+	font-size: 1em;
+	font-weight: bold;
+}
+
+.answersTable thead th {
+	padding: 1em;
+	border: 1px solid black;
+}
+
+.answersTable tbody {
+	font-size: 1em;
+}
+
+.answersTable td {
+	border: 1px solid black;
+	padding: 1em;
+}
+
+.correctAnswer {
+	background-color: rgba(0, 255, 0, 0.51);
+}
+
+.wrongAnswer {
+	background-color: rgb(255, 112, 117);
+}

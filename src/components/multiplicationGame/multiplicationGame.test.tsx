@@ -51,7 +51,6 @@ describe('MultiplicationGame component', () => {
         fireEvent.change(input!, {target: {value: '6'}});
         fireEvent.submit(input!);
 
-        gameContainer = container.querySelector('.multiplicationTable');
-        expect(gameContainer).not.toBeInTheDocument();
+        expect(container.querySelector('input')).not.toBeInTheDocument();
     });
 });

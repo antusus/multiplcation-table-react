@@ -1,9 +1,11 @@
 import './multiplicationGame.css';
 import {
+    GameState,
     useMultiplicationTableActionsContext,
     useMultiplicationTableContext
 } from '../../providers/MultiplicationTableStateProvider';
 import {ChangeEvent, FormEvent, useState} from 'react';
+import AnsweredQuestions from "../answeredQuestions";
 
 export default function MultiplicationGame() {
     const context = useMultiplicationTableContext();
@@ -25,7 +27,7 @@ export default function MultiplicationGame() {
         setAnswer('');
     }
 
-    if (context.gameState && questions.length > 0 && Number.isInteger(currentQuestionIndex)) {
+    if (context.gameState && context.gameState === GameState.InProgress && questions.length > 0 && Number.isInteger(currentQuestionIndex)) {
         const question = questions[currentQuestionIndex!];
         return (
             <div className={'multiplicationTable'}>
@@ -41,6 +43,12 @@ export default function MultiplicationGame() {
                         required={true}
                     />
                 </form>
+            </div>
+        );
+    } else if (context.gameState && context.gameState === GameState.Finished) {
+        return (
+            <div className={'multiplicationTable'}>
+                <AnsweredQuestions/>
             </div>
         );
     } else {
