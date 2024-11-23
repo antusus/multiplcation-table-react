@@ -18,7 +18,9 @@ jobs:
         with:
           cmd: test
       - name: Build
-        run: build
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: build
       - name: Deploy to GH Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
