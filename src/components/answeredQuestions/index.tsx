@@ -1,7 +1,7 @@
 import {useMultiplicationTableContext} from "../../providers/MultiplicationTableStateProvider";
 import './answeredQuestions.css';
 
-export default function () {
+export default function AnsweredQuestions() {
     const context = useMultiplicationTableContext();
 
     return (
