@@ -1,6 +1,7 @@
 {
   "name": "multiplcation-table-react",
   "version": "0.1.0",
+  "homepage": "https://antusus.github.io/multiplcation-table-react/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^6.6.2",
@@ -20,7 +21,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "test:ci": "jest test --ci --coverage",
+    "predeploy": "yarn test && yarn build",
+    "deploy" : "gh-pages -d build",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -43,6 +45,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "@testing-library/dom": "^10.4.0"
+    "@testing-library/dom": "^10.4.0",
+    "gh-pages": "^6.2.0"
   }
 }
