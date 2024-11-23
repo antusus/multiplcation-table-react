@@ -1,11 +1,18 @@
-import {MultiplicationTableStateProvider} from "../../providers/MultiplicationTableStateProvider";
+import {
+    AnsweredQuestion,
+    GameState,
+    MultiplicationTableStateProvider, Question
+} from "../../providers/MultiplicationTableStateProvider";
 import {fireEvent, render} from "@testing-library/react";
 import ActionsBar from "./index";
 
 describe('NumbersSelector component', () => {
-    function getUi(selectedNumbers: number[]) {
+    function getUi(selectedNumbers: number[], gameState: GameState = GameState.NotStarted, answers: AnsweredQuestion[] = []) {
         return (
-            <MultiplicationTableStateProvider selectedNumbers={selectedNumbers}>
+            <MultiplicationTableStateProvider
+                selectedNumbers={selectedNumbers}
+                gameState={gameState}
+                answeredQuestions={answers}>
                 <ActionsBar/>
             </MultiplicationTableStateProvider>
         );
@@ -21,10 +28,12 @@ describe('NumbersSelector component', () => {
         expect(restartButton).toBeInTheDocument();
         expect(restartButton).toBeDisabled();
         expect(restartButton).toHaveClass('disabled');
+        const retakeButton = container.querySelector('#retake');
+        expect(retakeButton).not.toBeInTheDocument();
     });
 
     test('renders enabled start button', () => {
-        const {container} = render(getUi([1,2]));
+        const {container} = render(getUi([1, 2]));
         const button = container.querySelector('#startGame');
         expect(button).toBeInTheDocument();
         expect(button).not.toBeDisabled();
@@ -32,7 +41,7 @@ describe('NumbersSelector component', () => {
     });
 
     test('after clicking start start is disabled and restart enabled', () => {
-        const {container} = render(getUi([1,2]));
+        const {container} = render(getUi([1, 2]));
         const startButton = container.querySelector('#startGame');
         fireEvent.click(startButton!);
         expect(startButton).toBeDisabled();
@@ -42,7 +51,7 @@ describe('NumbersSelector component', () => {
     });
 
     test('after clicking restart restart is disabled and start enabled', () => {
-        const {container} = render(getUi([1,2]));
+        const {container} = render(getUi([1, 2]));
         const startButton = container.querySelector('#startGame');
         const restartButton = container.querySelector('#restartGame');
         fireEvent.click(startButton!);
@@ -51,5 +60,11 @@ describe('NumbersSelector component', () => {
         expect(startButton).toHaveClass('disabled');
         expect(restartButton).toBeDisabled();
         expect(restartButton).toHaveClass('disabled');
+    });
+
+    test('when game finished and are wrong answers retake button is shown', () => {
+        const {container} = render(getUi([1, 2], GameState.Finished, [new AnsweredQuestion(new Question(1, 2), 3)]));
+        const retakeButton = container.querySelector('#retake');
+        expect(retakeButton).toBeInTheDocument();
     });
 });

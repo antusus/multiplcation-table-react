@@ -141,6 +141,14 @@ function questionWasAnswered(state: MultiplicationTableContextType, payload: num
     return {...state, gameState, questions, answeredQuestions};
 }
 
+function questionsToRetake(answeredQuestions: AnsweredQuestion[]) {
+    return answeredQuestions.filter(q => !q.isCorrect).map(q => q.question);
+}
+
+function correctAnswers(answeredQuestions: AnsweredQuestion[]) {
+    return answeredQuestions.filter(q => q.isCorrect);
+}
+
 function selectedNumbersReducer(state: MultiplicationTableContextType, action: { type: string, payload: number }) {
     switch (action.type) {
         case 'add':
@@ -158,6 +166,8 @@ function selectedNumbersReducer(state: MultiplicationTableContextType, action: {
             return {...state, gameState: GameState.NotStarted, selectedNumbers: [], answeredQuestions: []};
         case 'answer':
             return questionWasAnswered(state, action.payload);
+        case 'retake':
+            return {...state, gameState: GameState.InProgress, questions: questionsToRetake(state.answeredQuestions), currentQuestionIndex: 0, answeredQuestions: correctAnswers(state.answeredQuestions)};
         default: {
             throw Error('Unknown action: ' + action.type);
         }

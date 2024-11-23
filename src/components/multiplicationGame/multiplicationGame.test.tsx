@@ -1,15 +1,21 @@
 import React from 'react';
 import {fireEvent, render} from "@testing-library/react";
-import {GameState, MultiplicationTableStateProvider, Question} from "../../providers/MultiplicationTableStateProvider";
+import {
+    AnsweredQuestion,
+    GameState,
+    MultiplicationTableStateProvider,
+    Question
+} from "../../providers/MultiplicationTableStateProvider";
 import MultiplicationGame from "./index";
 
 describe('MultiplicationGame component', () => {
-    function renderGame(gameStarted = GameState.NotStarted, questions = [] as Question[], currentQuestionIndex = 0) {
+    function renderGame(state = GameState.NotStarted, questions = [] as Question[], answers: AnsweredQuestion[] = []) {
         const {container} = render(
             <MultiplicationTableStateProvider
-                gameState={gameStarted}
+                gameState={state}
                 questions={questions}
-                currentQuestionIndex={currentQuestionIndex}>
+                currentQuestionIndex={0}
+                answeredQuestions={answers}>
                 <MultiplicationGame/>
             </MultiplicationTableStateProvider>
         );
@@ -47,7 +53,8 @@ describe('MultiplicationGame component', () => {
         let gameContainer = container.querySelector('.multiplicationTable');
         expect(gameContainer).toBeInTheDocument();
 
-        const input: HTMLInputElement | null = container.querySelector('input');
+        const input = container.querySelector('input');
+        expect(input).toBeInTheDocument();
         fireEvent.change(input!, {target: {value: '6'}});
         fireEvent.submit(input!);
 

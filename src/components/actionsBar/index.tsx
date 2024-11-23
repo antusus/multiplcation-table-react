@@ -19,6 +19,8 @@ export default function ActionsBar() {
         dispatch({type: 'restart', payload: 0});
     }
 
+    const wrongAnswers = context.gameState === GameState.Finished ? context.answeredQuestions.filter(q => !q.isCorrect) : [];
+
     return (
         <div className={'actionsBar'}>
             <button id={'startGame'}
@@ -33,6 +35,13 @@ export default function ActionsBar() {
                     onClick={handleRestart}>
                 Restart
             </button>
+            {wrongAnswers.length > 0 &&
+                    <button id={'retake'}
+                            className={'retake'}
+                            onClick={() => dispatch({type: 'retake', payload: 0})}>
+                        Powtórz błędne
+                    </button>
+            }
         </div>
     );
 }
