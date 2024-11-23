@@ -94,7 +94,7 @@ const numbers = [1,2,3,4,5,6,7,8,9,10];
 
 function generateQuestions(selectedNumbers: number[]) {
     return selectedNumbers.flatMap(n => numbers.map(m => {
-        return new Question(n, m + 1)
+        return new Question(n, m)
     }));
 }
 

@@ -22,6 +22,7 @@ export default function MultiplicationGame() {
             type: 'answer',
             payload: parseInt(answer)
         })
+        setAnswer('');
     }
 
     if (context.gameState && questions.length > 0 && Number.isInteger(currentQuestionIndex)) {
