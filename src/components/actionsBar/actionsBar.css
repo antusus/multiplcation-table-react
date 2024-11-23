@@ -1,0 +1,33 @@
+.actionsBar {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 1em;
+	gap: 2em;
+
+	.startGame {
+		background-color: #4CAF50;
+		color: #000000;
+		font-weight: bold;
+		padding: 1em 2em;
+		border: none;
+		border-radius: 0.6em;
+		cursor: pointer;
+	}
+
+	.restartGame {
+		background-color: #ff7075;
+		color: #000000;
+		font-weight: bold;
+		padding: 1em 2em;
+		border: none;
+		border-radius: 0.6em;
+		cursor: pointer;
+	}
+
+	.disabled {
+		background-color: #cccccc;
+		color: #666666;
+		cursor: not-allowed;
+	}
+}
