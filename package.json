@@ -22,7 +22,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "predeploy": "yarn test && yarn build",
-    "deploy" : "gh-pages -d build",
+    "deploy": "gh-pages -d build",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -45,7 +45,6 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "@testing-library/dom": "^10.4.0",
-    "gh-pages": "^6.2.0"
+    "@testing-library/dom": "^10.4.0"
   }
 }
