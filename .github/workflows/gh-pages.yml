@@ -1,5 +1,9 @@
 name: Publis to GitHub Pages
-on: [ push ]
+on:
+  push:
+    branches:
+      - master
+      - v2
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -13,7 +17,9 @@ jobs:
         uses: borales/actions-yarn@v4
         with:
           cmd: install
-      - name: Deploy (build & test)
-        uses: borales/actions-yarn@v4
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          cmd: deploy
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build
+          publish_branch: gh-pages
