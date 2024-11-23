@@ -17,6 +17,14 @@ jobs:
         uses: borales/actions-yarn@v4
         with:
           cmd: install
+      - name: Run test
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: test
+      - name: Run build
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: build
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         with:
