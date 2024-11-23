@@ -31,18 +31,23 @@ export default function MultiplicationGame() {
         const question = questions[currentQuestionIndex!];
         return (
             <div className={'multiplicationTable'}>
-                <form onSubmit={handleSumitAnswer}>
-                    <label className={'question'}>{question.factorOne} * {question.factorTwo} = </label>
-                    <input
-                        type='number'
-                        autoComplete={'off'}
-                        id={'answer'}
-                        onChange={handleChange}
-                        value={answer}
-                        autoFocus={true}
-                        required={true}
-                    />
-                </form>
+                <div className={'gameProgress'}>
+                    Pozostało pytań: {questions.length}
+                </div>
+                <div className={'questionForm'}>
+                    <form onSubmit={handleSumitAnswer}>
+                        <label className={'question'}>{question.factorOne} * {question.factorTwo} = </label>
+                        <input
+                            type='number'
+                            autoComplete={'off'}
+                            id={'answer'}
+                            onChange={handleChange}
+                            value={answer}
+                            autoFocus={true}
+                            required={true}
+                        />
+                    </form>
+                </div>
             </div>
         );
     } else if (context.gameState && context.gameState === GameState.Finished) {
