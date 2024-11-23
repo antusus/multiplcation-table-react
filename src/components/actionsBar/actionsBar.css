@@ -5,8 +5,7 @@
 	margin-top: 1em;
 	gap: 2em;
 
-	.startGame {
-		background-color: #4CAF50;
+	button {
 		color: #000000;
 		font-weight: bold;
 		padding: 1em 2em;
@@ -15,14 +14,16 @@
 		cursor: pointer;
 	}
 
+	.startGame {
+		background-color: #4CAF50;
+	}
+
 	.restartGame {
 		background-color: #ff7075;
-		color: #000000;
-		font-weight: bold;
-		padding: 1em 2em;
-		border: none;
-		border-radius: 0.6em;
-		cursor: pointer;
+	}
+
+	.retake {
+		background-color: #70aeff;
 	}
 
 	.disabled {
