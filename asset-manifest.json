@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/static/css/main.c329fbf7.css",
-    "main.js": "/static/js/main.76e31470.js",
-    "index.html": "/index.html",
-    "main.c329fbf7.css.map": "/static/css/main.c329fbf7.css.map",
-    "main.76e31470.js.map": "/static/js/main.76e31470.js.map"
+    "main.css": "/multiplcation-table-react/static/css/main.c329fbf7.css",
+    "main.js": "/multiplcation-table-react/static/js/main.76e31470.js",
+    "index.html": "/multiplcation-table-react/index.html",
+    "main.c329fbf7.css.map": "/multiplcation-table-react/static/css/main.c329fbf7.css.map",
+    "main.76e31470.js.map": "/multiplcation-table-react/static/js/main.76e31470.js.map"
   },
   "entrypoints": [
     "static/css/main.c329fbf7.css",
