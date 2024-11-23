@@ -16,7 +16,7 @@ describe('AnsweredQuestions component', () => {
         );
     }
 
-    it('should render', () => {
+    test('should render', () => {
         const {container} = render(getUi([new AnsweredQuestion(new Question(2, 3), 6)]));
         expect(container.querySelector('.answersContainer')).toBeInTheDocument();
         expect(container.querySelector('.answersTable')).toBeInTheDocument();

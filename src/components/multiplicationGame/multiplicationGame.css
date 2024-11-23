@@ -3,7 +3,14 @@
 	justify-content: center;
 	align-items: center;
 	margin-top: 1em;
-	gap: 2em;
+	gap: 1em;
+	flex-flow: column;
+
+	.gameProgress {
+		display: block;
+		font-size: 2em;
+		font-weight: bold;
+	}
 
 	.question {
 		font-size: 2em;

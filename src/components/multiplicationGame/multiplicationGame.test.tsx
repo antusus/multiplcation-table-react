@@ -53,4 +53,19 @@ describe('MultiplicationGame component', () => {
 
         expect(container.querySelector('input')).not.toBeInTheDocument();
     });
+
+    test('shows progress', () => {
+        const container = renderGame(GameState.InProgress, [new Question(2, 3), new Question(3, 3)]);
+
+        let progress = container.querySelector('.gameProgress');
+        expect(progress).toBeInTheDocument();
+        expect(progress?.textContent).toBe('Pozostało pytań: 2');
+
+        const input: HTMLInputElement | null = container.querySelector('input');
+        fireEvent.change(input!, {target: {value: '6'}});
+        fireEvent.submit(input!);
+
+        progress = container.querySelector('.gameProgress');
+        expect(progress?.textContent).toBe('Pozostało pytań: 1');
+    });
 });
