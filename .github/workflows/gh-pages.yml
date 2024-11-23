@@ -13,16 +13,7 @@ jobs:
         uses: borales/actions-yarn@v4
         with:
           cmd: install
-      - name: Run tests
+      - name: Deploy (build & test)
         uses: borales/actions-yarn@v4
         with:
-          cmd: test
-      - name: Build
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: build
-      - name: Deploy to GH Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
+          cmd: deploy
